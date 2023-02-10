@@ -1,0 +1,83 @@
+body {
+    text-align: center;
+}
+
+#wrapper {
+    background-color: cadetblue;
+}
+
+#submitNewBook {
+    margin: 20px 0;
+}
+
+#bookContainer {
+    background-color: blueviolet;
+    /* display: grid;
+    grid-template-columns: repeat(3, 30%);
+    grid-gap: 16px;
+    justify-content: center; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.modal-body form {
+    text-align: left;
+}
+
+.bookCard {
+    padding-top: 20px;
+    background-color: blue;
+    text-align: center;
+    margin: 50px 25px 25px 50px;
+}
+
+.cardFooter {
+    background-color: brown;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.bookGraphic {
+    height: 50%;
+    width: 50%;
+    margin-top: -35px;
+    margin-bottom: 5px;
+}
+
+.title,
+.author,
+.pages,
+.read {
+    color: white;
+}
+
+.title {
+    color: aqua;
+    /* margin: 0;
+    padding: 0; */
+}
+
+.author {}
+
+.pages {}
+
+.read {}
+
+.deleteBook,
+.editBook {
+    margin-top: 10px;
+}
+
+.deleteBook {
+    margin-left: 15px;
+}
+
+.editBook {
+    margin-right: 15px;
+}
+
+.displayNone {
+    background-color: yellow;
+}
