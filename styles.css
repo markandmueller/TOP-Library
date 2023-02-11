@@ -3,7 +3,8 @@ body {
 }
 
 #wrapper {
-    background-color: cadetblue;
+    background-color: #1d3557;
+    height: 1200px;
 }
 
 #submitNewBook {
@@ -11,14 +12,11 @@ body {
 }
 
 #bookContainer {
-    background-color: blueviolet;
-    /* display: grid;
-    grid-template-columns: repeat(3, 30%);
-    grid-gap: 16px;
-    justify-content: center; */
+    background-color: #a8dadc;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 150px;
 }
 
 .modal-body form {
@@ -27,13 +25,13 @@ body {
 
 .bookCard {
     padding-top: 20px;
-    background-color: blue;
+    background-color: #457b9d;
     text-align: center;
     margin: 50px 25px 25px 50px;
 }
 
 .cardFooter {
-    background-color: brown;
+    background-color: #f1faee;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -54,16 +52,16 @@ body {
 }
 
 .title {
-    color: aqua;
+    font-weight: 700;
+    font-size: 32px;
     /* margin: 0;
     padding: 0; */
 }
 
-.author {}
-
-.pages {}
-
-.read {}
+.pages,
+.read {
+    font-size: 20px;
+}
 
 .deleteBook,
 .editBook {
@@ -72,12 +70,9 @@ body {
 
 .deleteBook {
     margin-left: 15px;
+    background-color: #e63946;
 }
 
 .editBook {
     margin-right: 15px;
-}
-
-.displayNone {
-    background-color: yellow;
 }

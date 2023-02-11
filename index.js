@@ -1,3 +1,12 @@
+const formModal = document.querySelector('#submitNewBookModal');
+const form = document.querySelector('#submissionForm');
+const formTitle = document.querySelector('#formTitle');
+const formAuthor = document.querySelector('#formAuthor');
+const formPages = document.querySelector('#formPages');
+const formStatus = document.querySelector('#formReadingStatus');
+const submitButton = document.getElementById('submitBookBtn');
+let bookContainer = document.getElementById('bookContainer');
+
 let myLibrary = [
     {
         title: "Ulysses",
@@ -43,18 +52,63 @@ let myLibrary = [
     },
 ];
 
-function Book2(title, author, pages, read) {
+// function Book(title, author, pages, read) {
+//     const obj = {};
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+//     this.index = myLibrary.length;
+//     // console.log(obj);
+//     myLibrary.push(obj);
+//     removeAllCards(bookContainer);
+//     displayLibrary();
+// }
+
+function Book(title, author, pages, read) {
     const obj = {};
     obj.title = title;
     obj.author = author;
     obj.pages = pages;
     obj.read = read;
     obj.index = myLibrary.length;
-    console.log(obj);
+    // console.log(obj);
     myLibrary.push(obj);
+    removeAllCards(bookContainer);
+    displayLibrary();
 }
 
-let bookContainer = document.getElementById('bookContainer');
+function removeAllCards(bookContainer) {
+    while (bookContainer.firstChild) {
+        bookContainer.removeChild(bookContainer.firstChild);
+    }
+}
+
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    new Book(formTitle.value, formAuthor.value, formPages.value, formStatus.value);
+    console.log(myLibrary);
+})
+
+function enableEditButtons() {
+    let editButtons = document.querySelectorAll('.editBook');
+    editButtons.forEach((editButton) => {
+        editButton.addEventListener('click', () => {
+            console.log('EDIT was clicked');
+        })
+    })
+};
+
+function enableDeleteButtons() {
+    let deleteButtons = document.querySelectorAll('.deleteBook');
+    deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener('click', () => {
+            // console.log(deleteButton.closest('.bookCard'));
+            // deleteButton.closest('.bookCard').remove();
+            console.log('DELETE was clicked');
+        })
+    })
+};
 
 function displayLibrary() {
 
@@ -111,38 +165,16 @@ function displayLibrary() {
         cardFooter.appendChild(editBook);
         editBook.classList.add('editBook', 'btn', 'btn-primary', 'btn-sm');
     }
+    // console.log("displayed library");
+    // enableEditButtons();
+    // console.log("edit buttons enabled");
+    // enableDeleteButtons();
+    // console.log("delete buttons enabled");
 }
 
 displayLibrary();
 
-const form = document.querySelector('#submissionForm');
-const formTitle = document.querySelector('#formTitle');
-const formAuthor = document.querySelector('#formAuthor');
-const formPages = document.querySelector('#formPages');
-const formStatus = document.querySelector('#formReadingStatus');
-
-const submitButton = document.getElementById('submitBookBtn');
-submitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    new Book2(formTitle.value, formAuthor.value, formPages.value, formStatus.value);
-    // add values to the array
-    // displayLibrary();
-})
-
-let editButtons = document.querySelectorAll('.editBook');
-editButtons.forEach((editButton) => {
-    editButton.addEventListener('click', () => {
-        console.log('EDIT was clicked');
-    })
-})
-
-let deleteButtons = document.querySelectorAll('.deleteBook');
-deleteButtons.forEach((deleteButton) => {
-    deleteButton.addEventListener('click', () => {
-        // console.log(deleteButton.closest('.bookCard'));
-        // deleteButton.closest('.bookCard').remove();
-        console.log(this);
-        console.log(this.Book2)
-        console.log(Book2.obj.constructor)
-    })
-});
+// janky way I could possibly get the delete function working
+//on delete click, find closest H2 in card (book title)
+// search if that h2 tag matches anything in the array
+// if true, delete that
