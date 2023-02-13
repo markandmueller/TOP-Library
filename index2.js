@@ -101,8 +101,15 @@ function enableDeleteButtons() {
             let cardHere = evt.target.parentNode.parentNode;
             let titleHere = cardHere.firstChild.innerText;
             console.log(titleHere);
-            let bookMatch = myLibrary.find(element => element.title == titleHere);
-            console.log(bookMatch);
+            let bookMatchTitle = myLibrary.find(element => element.title == titleHere);
+            console.log(bookMatchTitle);
+            let indexMatch = bookMatchTitle.index;
+            console.log(indexMatch);
+            myLibrary.splice(indexMatch, 1);
+            console.log(myLibrary);
+            // sometimes nothing happening when trying to delete last displayed card
+            removeAllCards(bookContainer);
+            displayLibrary();
         })
     })
 };
@@ -114,7 +121,6 @@ function removeAllCards(bookContainer) {
 }
 
 function displayLibrary() {
-
     for (let book of myLibrary) {
         //create div for Book values
         const card = document.createElement('div');
