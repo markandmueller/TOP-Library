@@ -5,7 +5,7 @@ const formAuthor = document.querySelector('#formAuthor');
 const formPages = document.querySelector('#formPages');
 const formStatus = document.querySelector('#formReadingStatus');
 const submitButton = document.getElementById('submitBookBtn');
-let bookContainer = document.getElementById('bookContainer');
+const bookContainer = document.getElementById('bookContainer');
 
 let myLibrary = [
     {
@@ -52,18 +52,18 @@ let myLibrary = [
     },
 ];
 
-// function Book(title, author, pages, read) {
-//     const obj = {};
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.read = read;
-//     this.index = myLibrary.length;
-//     // console.log(obj);
-//     myLibrary.push(obj);
-//     removeAllCards(bookContainer);
-//     displayLibrary();
-// }
+function Book2(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.index = myLibrary.length;
+    console.log(`Just Submitted: ${this}`);
+    console.log(this);
+    myLibrary.push(this);
+    removeAllCards(bookContainer);
+    displayLibrary();
+}
 
 function Book(title, author, pages, read) {
     const obj = {};
@@ -72,10 +72,6 @@ function Book(title, author, pages, read) {
     obj.pages = pages;
     obj.read = read;
     obj.index = myLibrary.length;
-    // obj.info = function () {
-    //     return `"${obj.title}" by ${obj.author}, ${obj.pages} pages: ${obj.read}.`;
-    // }
-    // console.log(obj.info);
     myLibrary.push(obj);
     removeAllCards(bookContainer);
     displayLibrary();
@@ -83,7 +79,9 @@ function Book(title, author, pages, read) {
 
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    new Book(formTitle.value, formAuthor.value, formPages.value, formStatus.value);
+    // edit the function name below to test the constructor function
+    new Book2(formTitle.value, formAuthor.value, formPages.value, formStatus.value);
+    console.log("The Updated Library is this:")
     console.log(myLibrary);
 })
 
@@ -99,10 +97,12 @@ function enableEditButtons() {
 function enableDeleteButtons() {
     let deleteButtons = document.querySelectorAll('.deleteBook');
     deleteButtons.forEach((deleteButton) => {
-        deleteButton.addEventListener('click', () => {
-            // console.log(deleteButton.closest('.bookCard'));
-            // deleteButton.closest('.bookCard').remove();
-            console.log('DELETE was clicked');
+        deleteButton.addEventListener('click', (evt) => {
+            let cardHere = evt.target.parentNode.parentNode;
+            let titleHere = cardHere.firstChild.innerText;
+            console.log(titleHere);
+            let bookMatch = myLibrary.find(element => element.title == titleHere);
+            console.log(bookMatch);
         })
     })
 };
@@ -168,11 +168,11 @@ function displayLibrary() {
         cardFooter.appendChild(editBook);
         editBook.classList.add('editBook', 'btn', 'btn-primary', 'btn-sm');
     }
-    // console.log("displayed library");
-    // enableEditButtons();
-    // console.log("edit buttons enabled");
-    // enableDeleteButtons();
-    // console.log("delete buttons enabled");
+    console.log("displayed library");
+    enableEditButtons();
+    console.log("edit buttons enabled");
+    enableDeleteButtons();
+    console.log("delete buttons enabled");
 }
 
 displayLibrary();
