@@ -26,7 +26,7 @@ let myLibrary = [
         title: "Brave New World",
         author: "Aldous Huxley",
         pages: 999,
-        read: "reading",
+        read: "yes",
         index: 2,
     },
     {
@@ -47,7 +47,7 @@ let myLibrary = [
         title: "Jack Reacher",
         author: "dudes Name",
         pages: 132,
-        read: "reading",
+        read: "yes",
         index: 5,
     },
 ];
@@ -88,11 +88,28 @@ submitButton.addEventListener('click', (e) => {
 function enableEditButtons() {
     let editButtons = document.querySelectorAll('.editBook');
     editButtons.forEach((editButton) => {
-        editButton.addEventListener('click', () => {
-            console.log('EDIT was clicked');
+        editButton.addEventListener('click', (evt) => {
+            let cardHere = evt.target.parentNode.parentNode;
+            let statusHere = cardHere.lastChild.previousSibling.innerText;
+            let titleHere = cardHere.firstChild.innerText;
+            let bookMatchTitle = myLibrary.find(element => element.title == titleHere);
+            let indexMatch = bookMatchTitle.index;
+            let bookForUpdate = myLibrary.find(element => element.index == indexMatch);
+            if (statusHere === 'yes') {
+                bookForUpdate.read = 'no'
+            }
+            else if (statusHere === 'no') {
+                bookForUpdate.read = 'yes'
+            }
+            else {
+                alert('error message');
+            }
+            removeAllCards(bookContainer);
+            displayLibrary();
         })
     })
 };
+
 
 function enableDeleteButtons() {
     let deleteButtons = document.querySelectorAll('.deleteBook');
@@ -153,7 +170,7 @@ function displayLibrary() {
         //create HTML tag for book.read
         //insert book.read
         const bookRead = document.createElement('p');
-        bookRead.innerText = `${book.read}`;
+        bookRead.innerText = `Read Status: ${book.read}`;
         card.appendChild(bookRead);
         bookRead.classList.add('read');
         //create HTML tag for flex div
@@ -164,26 +181,19 @@ function displayLibrary() {
         //create HTML tag for delete
         //insert delete
         const deleteBook = document.createElement('p');
-        deleteBook.innerText = 'Delete';
+        deleteBook.innerText = 'Delete Book';
         cardFooter.appendChild(deleteBook);
         deleteBook.classList.add('deleteBook', 'btn', 'btn-primary', 'btn-sm');
         //create HTML tag for edit
         //insert edit
         const editBook = document.createElement('p');
-        editBook.innerText = 'Edit';
+        editBook.innerText = 'Toggle Status';
         cardFooter.appendChild(editBook);
         editBook.classList.add('editBook', 'btn', 'btn-primary', 'btn-sm');
     }
-    console.log("displayed library");
+
     enableEditButtons();
-    console.log("edit buttons enabled");
     enableDeleteButtons();
-    console.log("delete buttons enabled");
 }
 
 displayLibrary();
-
-// janky way I could possibly get the delete function working
-//on delete click, find closest H2 in card (book title)
-// search if that h2 tag matches anything in the array
-// if true, delete that
